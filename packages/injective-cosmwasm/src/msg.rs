@@ -1,4 +1,4 @@
-use cosmwasm_std::{Addr, BankMsg, Coin, CosmosMsg, CustomMsg, Deps, StdError, StdResult};
+use cosmwasm_std::{Addr, BankMsg, Coin, CosmosMsg, CustomMsg, Decimal256, Deps, StdError, StdResult};
 use injective_math::FPDecimal;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -153,6 +153,17 @@ pub enum InjectiveMsg {
         sender: Addr,
         contract_address: Addr,
     },
+    InstantSpotMarketLaunch {
+        sender: String,
+        ticker: String,
+        base_denom: String,
+        quote_denom: String,
+        min_price_tick_size: Decimal256,
+        min_quantity_tick_size: Decimal256,
+        min_notional: Decimal256,
+        base_decimals: u32,
+        quote_decimals: u32,
+    }
 }
 
 pub fn create_deposit_msg(sender: Addr, subaccount_id: SubaccountId, amount: Coin) -> CosmosMsg<InjectiveMsgWrapper> {
